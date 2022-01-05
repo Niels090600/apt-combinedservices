@@ -34,7 +34,7 @@ public class CompleteBestellingController {
 
     @GetMapping("/bestellingen/{bestelNummer}")
     public CompleteBestelling getBestellingByBestelNummer(@PathVariable String bestelNummer){
-        Bestelling bestelling = restTemplate.getForObject("https://" + bestellingServiceBaseUrl + "/bestellingen/bestelnummer/" + bestelNummer, Bestelling.class);
+        Bestelling bestelling = restTemplate.getForObject("http://" + bestellingServiceBaseUrl + "/bestellingen/bestelnummer/" + bestelNummer, Bestelling.class);
         if (bestelling != null){
             return vulBestelling(bestelling);
         }
@@ -43,7 +43,7 @@ public class CompleteBestellingController {
 
     @GetMapping("/bestellingen")
     public List<CompleteBestelling> getBestellingen(){
-        ResponseEntity<List<Bestelling>> responseEntityBestellingen = restTemplate.exchange("https://" + bestellingServiceBaseUrl + "/bestellingen", HttpMethod.GET, null, new ParameterizedTypeReference<List<Bestelling>>() {
+        ResponseEntity<List<Bestelling>> responseEntityBestellingen = restTemplate.exchange("http://" + bestellingServiceBaseUrl + "/bestellingen", HttpMethod.GET, null, new ParameterizedTypeReference<List<Bestelling>>() {
         });
         List<Bestelling> bestellingen = responseEntityBestellingen.getBody();
         List<CompleteBestelling> completeBestellingen = new ArrayList<>();
@@ -58,60 +58,60 @@ public class CompleteBestellingController {
 
     @PostMapping("/bestellingen")
     public CompleteBestelling newBestelling(@RequestBody Bestelling bestelling){
-        Bestelling postBestelling = restTemplate.postForObject("https://" + bestellingServiceBaseUrl + "/bestellingen", bestelling, Bestelling.class);
+        Bestelling postBestelling = restTemplate.postForObject("http://" + bestellingServiceBaseUrl + "/bestellingen", bestelling, Bestelling.class);
         assert postBestelling != null;
         return vulBestelling(postBestelling);
     }
 
     @PutMapping("/bestellingen")
     public CompleteBestelling editBestelling(@RequestBody Bestelling bestelling){
-        ResponseEntity<Bestelling> responseEntityBestelling = restTemplate.exchange("https://" + bestellingServiceBaseUrl + "/bestellingen", HttpMethod.PUT, new HttpEntity<>(bestelling), Bestelling.class);
+        ResponseEntity<Bestelling> responseEntityBestelling = restTemplate.exchange("http://" + bestellingServiceBaseUrl + "/bestellingen", HttpMethod.PUT, new HttpEntity<>(bestelling), Bestelling.class);
         return vulBestelling(responseEntityBestelling.getBody());
     }
 
     @DeleteMapping("/bestellingen/bestelnummer/{bestelNummer}")
     public ResponseEntity<String> deleteBestelling(@PathVariable String bestelNummer){
-        restTemplate.delete("https://" + bestellingServiceBaseUrl + "/bestellingen/bestelnummer/" + bestelNummer);
+        restTemplate.delete("http://" + bestellingServiceBaseUrl + "/bestellingen/bestelnummer/" + bestelNummer);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/personeel")
     public List<Personeel> getPersoneel(){
-        ResponseEntity<List<Personeel>> responseEntityPersoneel = restTemplate.exchange("https://" + personeelServiceBaseUrl + "/personeel", HttpMethod.GET, null, new ParameterizedTypeReference<List<Personeel>>() {
+        ResponseEntity<List<Personeel>> responseEntityPersoneel = restTemplate.exchange("http://" + personeelServiceBaseUrl + "/personeel", HttpMethod.GET, null, new ParameterizedTypeReference<List<Personeel>>() {
         });
         return responseEntityPersoneel.getBody();
     }
 
     @GetMapping("/personeel/{personeelsNummer}")
     public Personeel getPersoneelByPersoneelsNummer(@PathVariable String personeelsNummer){
-        return restTemplate.getForObject("https://" + personeelServiceBaseUrl + "/personeel/" + personeelsNummer, Personeel.class);
+        return restTemplate.getForObject("http://" + personeelServiceBaseUrl + "/personeel/" + personeelsNummer, Personeel.class);
     }
 
     @GetMapping("/personeel/functie/{functie}")
     public List<Personeel> getPersoneelByFunctie(@PathVariable String functie){
-        ResponseEntity<List<Personeel>> responseEntityPersoneel = restTemplate.exchange("https://" + personeelServiceBaseUrl + "/personeel/functie/" + functie, HttpMethod.GET, null, new ParameterizedTypeReference<List<Personeel>>() {
+        ResponseEntity<List<Personeel>> responseEntityPersoneel = restTemplate.exchange("http://" + personeelServiceBaseUrl + "/personeel/functie/" + functie, HttpMethod.GET, null, new ParameterizedTypeReference<List<Personeel>>() {
         });
         return responseEntityPersoneel.getBody();
     }
 
     @GetMapping("/gerechten")
     public List<Gerecht> getGerechten(){
-        ResponseEntity<List<Gerecht>> responseEntityGerechten = restTemplate.exchange("https://" + gerechtServiceBaseUrl + "/gerechten", HttpMethod.GET, null, new ParameterizedTypeReference<List<Gerecht>>() {
+        ResponseEntity<List<Gerecht>> responseEntityGerechten = restTemplate.exchange("http://" + gerechtServiceBaseUrl + "/gerechten", HttpMethod.GET, null, new ParameterizedTypeReference<List<Gerecht>>() {
         });
         return responseEntityGerechten.getBody();
     }
 
     @GetMapping("/gerechten/{gerechtNummer}")
     public Gerecht getGerechtByGerechtNummer(@PathVariable String gerechtNummer){
-        return restTemplate.getForObject("https://" + gerechtServiceBaseUrl + "/gerechten/" + gerechtNummer, Gerecht.class);
+        return restTemplate.getForObject("http://" + gerechtServiceBaseUrl + "/gerechten/" + gerechtNummer, Gerecht.class);
     }
 
     private CompleteBestelling vulBestelling(Bestelling bestelling) {
-        Personeel personeel = restTemplate.getForObject("https://" + personeelServiceBaseUrl + "/personeel/" + bestelling.getPersoneelsNummer(), Personeel.class);
+        Personeel personeel = restTemplate.getForObject("http://" + personeelServiceBaseUrl + "/personeel/" + bestelling.getPersoneelsNummer(), Personeel.class);
 
         ArrayList<Gerecht> gerechten = new ArrayList<>();
         for (String gerechtNummer: bestelling.getGerechten()) {
-            Gerecht gerecht = restTemplate.getForObject("https://" + gerechtServiceBaseUrl + "/gerechten/" + gerechtNummer, Gerecht.class);
+            Gerecht gerecht = restTemplate.getForObject("http://" + gerechtServiceBaseUrl + "/gerechten/" + gerechtNummer, Gerecht.class);
             gerechten.add(gerecht);
         }
 

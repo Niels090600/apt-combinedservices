@@ -27,11 +27,11 @@ spec:
             memory: "200Mi"
         env:                    # Environment variables supplied to the Pod
         - name: GERECHT_SERVICE_BASEURL
-          value: "gerecht-service:8053"
+          value: "gerecht-service-server:8053"
         - name: PERSONEEL_INFO_SERVICE_BASEURL
-          value: "personeel-service:8051"
+          value: "personeel-service-server:8051"
         - name: BESTELLING_INFO_SERVICE_BASEURL
-          value: "bestelling-service:8052"
+          value: "bestelling-service-server:8052"
 ---
 apiVersion: v1                # API version
 kind: Service                 # Type of the kubernetes resource

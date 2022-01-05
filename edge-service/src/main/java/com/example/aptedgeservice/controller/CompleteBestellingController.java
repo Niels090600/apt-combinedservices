@@ -45,7 +45,7 @@ public class CompleteBestellingController {
     public List<CompleteBestelling> getBestellingen(){
         ResponseEntity<List<Bestelling>> responseEntityBestellingen = restTemplate.exchange("http://" + bestellingServiceBaseUrl + "/bestellingen", HttpMethod.GET, null, new ParameterizedTypeReference<List<Bestelling>>() {
         });
-        System.Out.Println("http://" + bestellingServiceBaseUrl + "/bestellingen");
+        System.out.println("http://" + bestellingServiceBaseUrl + "/bestellingen");
         List<Bestelling> bestellingen = responseEntityBestellingen.getBody();
         List<CompleteBestelling> completeBestellingen = new ArrayList<>();
         assert bestellingen != null;

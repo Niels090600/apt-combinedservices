@@ -78,7 +78,7 @@ metadata:
   labels:                        # Labels that will be applied to this service
     app: bestelling-service-server
 spec:                         
-  type: ClusterIp
+  type: ClusterIP
     app: bestelling-service-server   # The service exposes Pods with label `app=bestelling-service-server`
   ports:                         # Forward incoming connections on port 8052 to the target port 8052
   - name: http

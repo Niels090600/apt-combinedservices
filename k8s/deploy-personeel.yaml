@@ -85,7 +85,7 @@ metadata:
   labels:                           # Labels that will be applied to this service
     app: personeel-service-server
 spec:
-  type: ClusterIp
+  type: ClusterIP
   selector:
     app: personeel-service-server   # The service exposes Pods with label `app=personeel-service-server`
   ports:                            # Forward incoming connections on port 8080 to the target port 8051

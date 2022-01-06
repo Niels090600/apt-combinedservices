@@ -37,6 +37,7 @@ public class PersoneelController {
     @PostConstruct
     public void fillDB(){
         if(personeelRepository.count()==0){
+
             Personeel arne = new Personeel("Arne", "Hus", Functie.Keuken);
             arne.setPersoneelsnummer("K20220103AH");
             personeelRepository.save(arne);
